@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-neo-bg: #F4F4F0;
+  --color-neo-mustard: #3BB273;
+  --color-neo-blue: #5C7AFF;
+  --color-neo-terra: #D76C5C;
+  --color-neo-green: #55B468;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #F4F4F0;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+
+/* High-Contrast Bold Styles */
+.neo-border-2 {
+  border: 2px solid #000000;
+}
+
+.neo-border-3 {
+  border: 3px solid #000000;
+}
+
+.neo-border-4 {
+  border: 4px solid #000000;
+}
+
+.neo-shadow-sm {
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.neo-shadow-md {
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.neo-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.neo-card {
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  background-color: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.neo-btn {
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.neo-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.neo-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+.neo-input {
+  border: 3px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: focus 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.neo-input:focus {
+  box-shadow: 4px 4px 0px #000000;
+  transform: translate(-2px, -2px);
+  border-color: #000000;
+}
+
+/* Custom terminal font & style */
+.term-font {
+  font-family: 'Space Grotesk', ui-monospace, monospace;
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
