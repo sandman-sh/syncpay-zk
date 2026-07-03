@@ -1,4 +1,4 @@
-import { Address, hash } from "@stellar/stellar-sdk";
+import { Address, hash, nativeToScVal } from "@stellar/stellar-sdk";
 import { Buffer } from "buffer";
 
 /**
@@ -28,27 +28,17 @@ export function calculatePaymentCommitment(
   amount: string
 ): string {
   try {
-    // 1. Serialize the sender and recipient Addresses to their underlying ScAddress XDR format
-    const senderScAddress = new Address(sender).toScAddress();
-    const recipientScAddress = new Address(recipient).toScAddress();
+    // 1. Serialize sender and recipient Addresses to their underlying ScVal wrapper format
+    const senderScVal = new Address(sender).toScVal();
+    const recipientScVal = new Address(recipient).toScVal();
     
-    // 2. Convert amount to BigInt with 7 decimals
+    // 2. Convert amount to BigInt with 7 decimals and wrap as ScVal i128
     const amountVal = BigInt(Math.floor(parseFloat(amount) * 10000000));
-    
-    // i128 to XDR bytes: primitive integer types in Soroban write their 16-byte big-endian representation
-    const amountBuf = Buffer.alloc(16);
-    let temp = amountVal;
-    if (temp < 0n) {
-      temp = (1n << 128n) + temp;
-    }
-    for (let i = 15; i >= 0; i--) {
-      amountBuf[i] = Number(temp & 0xFFn);
-      temp >>= 8n;
-    }
+    const amountScVal = nativeToScVal(amountVal, { type: "i128" });
 
-    const senderBytes = senderScAddress.toXDR();
-    const recipientBytes = recipientScAddress.toXDR();
-    const amountBytes = amountBuf;
+    const senderBytes = senderScVal.toXDR();
+    const recipientBytes = recipientScVal.toXDR();
+    const amountBytes = amountScVal.toXDR();
 
     // 3. Concatenate and calculate SHA256 hash using Stellar SDK's hash helper
     const concatenated = Buffer.concat([senderBytes, recipientBytes, amountBytes]);

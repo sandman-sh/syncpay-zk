@@ -41,3 +41,4 @@ impl SyncPayZKContract {
         client.transfer(&from, &to, &amount);
     }
 }
+
